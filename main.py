@@ -40,8 +40,31 @@ class Data:
             data[j+1] = val
         return data
 
-    def merge_sort(self, data: List) -> List:
-        pass
+    def merge_sort(self, data: List = None) -> List:
+        if data == None:
+            data = self.data
+        if len(data) <= 1:
+            return data
+        mid = int(len(data) / 2)
+        l, r = self.merge_sort(data[:mid]), self.merge_sort(data[mid:])
+        return self.merge(l, r)
+
+    def merge(self, l: List, r: List) -> List:
+        sorted = []
+        lIndex, rIndex = 0, 0
+
+        while lIndex < len(l) and rIndex < len(r):
+            if l[lIndex] < r[rIndex]:
+                sorted.append(l[lIndex])
+                lIndex += 1
+            else:
+                sorted.append(r[rIndex])
+                rIndex += 1
+
+        sorted.extend(l[lIndex:])
+        sorted.extend(r[rIndex:])
+
+        return sorted
 
     def linear_search(self, data: List, val: int) -> List:
         pass
