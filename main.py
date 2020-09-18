@@ -13,7 +13,7 @@ class Data:
         data = []
         for x in range(size):
             x = x # Literally to stop git and vscode complaing that x is unused
-            data.append(random.randint(0, 100))
+            data.append(random.randint(0, 10000))
         return data
 
     def bubble_sort(self) -> List:
@@ -66,8 +66,13 @@ class Data:
 
         return sorted
 
-    def linear_search(self, data: List, val: int) -> List:
-        pass
+    def linear_search(self, val: float) -> List:
+        data = self.data
+        positions = []
+        for x in range(0, len(data)):
+            if data[x] == val:
+                positions.append(x)
+        return positions
 
     def binary_search(self, data: List, val: int) -> List:
         pass
@@ -106,11 +111,17 @@ class Menu:
         dataset = Data(data, size)
 
         if self.options[choice-1].split("_")[1] == "sort":
+            self.clear_screen()
+            print(10*"-"+self.get_nice_name(self.options[choice-1])+10*"-")
             print(f"Original Data: {dataset.data}")
             print(f"Sorted Data  : {eval(f'dataset.{self.options[choice-1]}()')}")
 
         else:
-            print("search")
+            val = float(input("What number are you trying to locate?\n> "))
+            self.clear_screen()
+            print(10*"-"+self.get_nice_name(self.options[choice-1])+10*"-")
+            print(f"Original Data: {dataset.data}")
+            print(f"Position(s)  : {eval(f'dataset.{self.options[choice-1]}({val})')}")
 
         input("...")
         self.show_menu()
