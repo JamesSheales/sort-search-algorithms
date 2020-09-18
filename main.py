@@ -3,9 +3,9 @@ from os import name, system
 from typing import List
 
 class Data:
-    def __init__(self, data=None):
+    def __init__(self, data, size):
         if data == None:
-            self.data = self.generate_dataset(10)
+            self.data = self.generate_dataset(size)
         else:
             self.data = data
 
@@ -16,8 +16,18 @@ class Data:
             data.append(random.randint(0, 100))
         return data
 
-    def bubble_sort(self, data: List) -> List:
-        pass
+    def bubble_sort(self) -> List:
+        data = self.data
+        sorted: bool = False
+        while not sorted:
+            swapped: bool = False
+            for i in range(0, len(data)-1):
+                if data[i] > data[i+1]:
+                    swapped = True
+                    data[i], data[i+1] = data[i+1], data[i]
+            if swapped == False:
+                sorted = True
+        return data
 
     def insertion_sort(self, data: List) -> List:
         pass
@@ -49,17 +59,30 @@ class Menu:
         print(f"{option+2}. Quit")
         print(34*"-")
         choice = int(input("> "))
+        self.clear_screen()
 
         if choice == len(self.options)+1:
-            self.clear_screen()
             quit()
         
-        elif self.options[choice-1].split("_")[1] == "sort":
-            print("sort")
+        data = input("Type 'random' for random data or 'x,y,z' for own data.\n> ")
+        if data == "random":
+            data = None
+            size = int(input("How many values?\n> "))
+        else:
+            data = eval(f"[{data}]")
+            size = len(data)
+
+        dataset = Data(data, size)
+
+        if self.options[choice-1].split("_")[1] == "sort":
+            print(f"Original Data: {dataset.data}")
+            print(f"Sorted Data  : {eval(f'dataset.{self.options[choice-1]}()')}")
 
         else:
             print("search")
 
+        input("...")
+        self.show_menu()
         
     def clear_screen(self):
         if name == "nt":
