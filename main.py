@@ -29,8 +29,16 @@ class Data:
                 sorted = True
         return data
 
-    def insertion_sort(self, data: List) -> List:
-        pass
+    def insertion_sort(self) -> List:
+        data = self.data
+        for i in range(1, len(data)):
+            val = data[i]
+            j=i-1
+            while j>=0 and val < data[j]:
+                data[j+1] = data[j]
+                j -= 1
+            data[j+1] = val
+        return data
 
     def merge_sort(self, data: List) -> List:
         pass
