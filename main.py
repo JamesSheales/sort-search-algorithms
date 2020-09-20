@@ -74,12 +74,26 @@ class Data:
                 positions.append(x)
         return positions
 
-    def binary_search(self, data: List, val: int) -> List:
-        pass
+    def binary_search(self, val: int) -> List:
+        data = self.merge_sort(self.data)
+        lowerbound= 0
+        upperbound= len(data)-1
+        mid = 0
+
+        while lowerbound <= upperbound:
+            mid = (upperbound+lowerbound) // 2
+            if data[mid] < val:
+                lowerbound = mid + 1
+            elif data[mid] > val:
+                upperbound = mid - 1
+            else:
+                return mid
+
+        return None
 
 class Menu:
     def __init__(self):
-        self.options = ["bubble_sort", "insertion_sort", "merge_sort", "linear_search"]
+        self.options = ["bubble_sort", "insertion_sort", "merge_sort", "linear_search", "binary_search"]
         self.show_menu()
 
     def get_nice_name(self, option: str) -> str:
