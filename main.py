@@ -91,9 +91,32 @@ class Data:
 
         return None
 
+    def quick_sort(self, data: List = None) -> List:
+        if data == None:
+            data = self.data
+        
+        if len(data) <= 1:
+            return data
+
+        left = 1
+        right = len(data) - 1
+        pivot = data[0]
+
+        while right >= left:
+            while left <= right and data[left] <= pivot:
+                left += 1
+            while right >= left and data[right] >= pivot:
+                right -= 1
+            if right > left:
+                data[left], data[right] = data[right], data[left]
+        
+        data[0], data[right] = data[right], data[0]
+        return self.quick_sort(data[0:right]) + [data[right]] + self.quick_sort(data[right+1:])
+
+
 class Menu:
     def __init__(self):
-        self.options = ["bubble_sort", "insertion_sort", "merge_sort", "linear_search", "binary_search"]
+        self.options = ["bubble_sort", "insertion_sort", "merge_sort", "quick_sort", "linear_search", "binary_search"]
         self.show_menu()
 
     def get_nice_name(self, option: str) -> str:
